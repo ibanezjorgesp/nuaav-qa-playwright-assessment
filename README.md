@@ -15,13 +15,13 @@ python -m venv venv
 .\venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 playwright install chromium firefox
-
-2. Running All Tests and Expected Output
+```
+## 2. Running All Tests and Expected Output
 Run the full test suite across both configured browsers (Chromium and Firefox) from the repository root:
 
-PowerShell
+```powershell
 pytest -v
-
+``` 
 Expected output:
 
 Plaintext
@@ -30,8 +30,8 @@ collected 32 items
 ================================ 32 passed in ~70.00s ================================
 (16 functional test scenarios executed across 2 browsers = 32 passed checks).
 
-3. Running a Specific Test File or Test by Name
-PowerShell
+## 3. Running a Specific Test File or Test by Name
+```powershell
 # Run a single test file
 pytest -v tests/test_auth.py
 
@@ -39,19 +39,21 @@ pytest -v tests/test_auth.py
 pytest -v -k "test_complete_three_step_checkout_flow"
 
 # Run on a single browser only
-pytest -v --browser chromium
-
-4. Generating and Viewing the HTML Report
+pytest -v --browser chromium 
+```
+## 4. Generating and Viewing the HTML Report
 Generate a self-contained HTML report using pytest-html (included in requirements.txt):
 
-PowerShell
+```powershell
 pytest -v --html=report.html --self-contained-html
+```
 To view it after a run, open report.html directly in any web browser, or launch it from PowerShell:
 
-PowerShell
+```powershell
 start report.html
+```
 
-5. Key Design Decisions and Trade-offs
+## 5. Key Design Decisions and Trade-offs
 The suite uses a strict Page Object Model (POM) under pages/ (BasePage, LoginPage, InventoryPage, CartPage, CheckoutPage) so locators and UI interactions stay decoupled from test assertions in tests/. For test isolation, conftest.py authenticates standard_user once per session into .auth/standard_user.json via storageState and spawns fresh browser contexts per test, while cart tests explicitly clear leftover items before running. Default Playwright timeouts (30s actions, 5s expect) are preserved for SauceDemo's lightweight SPA, paired with an explicit 10.0s threshold for performance_glitch_user and automatic reruns = 1 when CI is set. Given the time constraint, the main trade-off was focusing on deterministic E2E functional coverage and SauceDemo's special user behaviors (locked_out_user, problem_user, performance_glitch_user, error_user) rather than adding visual regression snapshots or a remote GitHub Actions pipeline.
 
 Onboarding a Junior Engineer
