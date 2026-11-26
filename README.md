@@ -8,8 +8,8 @@ Automated UI testing suite for [SauceDemo](https://www.saucedemo.com) built with
 
 - `pages/`: Page objects (`BasePage`, `LoginPage`, `InventoryPage`, `CartPage`, `CheckoutPage`) encapsulating locators and UI interactions.
 - `tests/`: Test modules covering authentication (`test_auth.py`), inventory and cart (`test_inventory_and_cart.py`), and checkout (`test_checkout.py`), including SauceDemo behavioral users (`locked_out_user`, `problem_user`, `performance_glitch_user`, `error_user`).
-- `conftest.py`: Session-scoped authentication via `storageState` (`.auth/standard_user.json`) and isolated browser context/page fixtures.
-- `pytest.ini`: Test discovery and failure screenshot configuration (`test-results/`).
+- `conftest.py`: Session-scoped authentication via `storageState` (`.auth/standard_user.json`), isolated browser context/page fixtures, and automatic CI retry configuration (`retries = 1` when `CI` is set).
+- `pytest.ini`: Configures `base_url`, multi-browser execution (`chromium` and `firefox`), test discovery, and failure screenshots under `test-results/`.
 
 ## Setup
 

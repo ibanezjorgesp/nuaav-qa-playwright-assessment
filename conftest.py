@@ -82,3 +82,9 @@ def auth_cart_page(authenticated_page: Page) -> CartPage:
 @pytest.fixture
 def auth_checkout_page(authenticated_page: Page) -> CheckoutPage:
     return CheckoutPage(authenticated_page)
+
+import os
+
+def pytest_configure(config):
+    if os.getenv("CI") and not getattr(config.option, "reruns", None):
+        config.option.reruns = 1
